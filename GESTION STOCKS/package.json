@@ -1,0 +1,21 @@
+{
+  "name": "verger-du-coin",
+  "version": "1.0.0",
+  "description": "Système d'information pour la gestion des stocks de l'exploitation Le Verger du Coin",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "keywords": ["agriculture", "gestion-stocks", "SI", "POC"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.2.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

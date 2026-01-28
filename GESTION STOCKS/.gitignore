@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Base de données SQLite
+backend/database/*.db
+backend/database/*.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Variables d'environnement
+.env
+.env.local

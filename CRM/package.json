@@ -1,0 +1,21 @@
+{
+  "name": "verger-du-coin-crm",
+  "version": "1.0.0",
+  "description": "Module CRM pour Le Verger du Coin - Gestion des clients et conformité RGPD",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "keywords": ["agriculture", "CRM", "RGPD", "gestion-clients", "SI"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.2.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

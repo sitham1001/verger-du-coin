@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Verger du Coin - Module CRM</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Styles personnalisés -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <i class="bi bi-people"></i> Le Verger du Coin
+            </span>
+            <span class="text-white">
+                <i class="bi bi-person-badge"></i> Module CRM - Gestion des Clients
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Alertes -->
+        <div id="alertContainer"></div>
+
+        <!-- Statistiques rapides -->
+        <div class="row mb-4" id="statsRow">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalClients">-</div>
+                    <div class="stat-label">Clients Actifs</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-value text-success" id="clientsConsentement">-</div>
+                    <div class="stat-label">Avec Consentement RGPD</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-value text-info" id="clientsActifs">-</div>
+                    <div class="stat-label">Clients Acheteurs</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Onglets principaux -->
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="clients-tab" data-bs-toggle="tab" data-bs-target="#clients" type="button">
+                    <i class="bi bi-people"></i> Clients
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nouveau-client-tab" data-bs-toggle="tab" data-bs-target="#nouveau-client" type="button">
+                    <i class="bi bi-person-plus"></i> Nouveau Client
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="statistiques-tab" data-bs-toggle="tab" data-bs-target="#statistiques" type="button">
+                    <i class="bi bi-graph-up"></i> Statistiques
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenu des onglets -->
+        <div class="tab-content" id="mainTabContent">
+            <!-- ONGLET CLIENTS -->
+            <div class="tab-pane fade show active" id="clients" role="tabpanel">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Liste des Clients</span>
+                        <button class="btn btn-primary btn-sm" id="btnNewClient">
+                            <i class="bi bi-plus-circle"></i> Nouveau Client
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Téléphone</th>
+                                        <th>RGPD</th>
+                                        <th>Date de Création</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="clientsTableBody">
+                                    <tr>
+                                        <td colspan="6" class="text-center">Chargement...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ONGLET NOUVEAU CLIENT -->
+            <div class="tab-pane fade" id="nouveau-client" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-person-plus"></i> Enregistrer un Nouveau Client
+                    </div>
+                    <div class="card-body">
+                        <form id="nouveauClientForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nom <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="clientNom" required>
+                                    <div class="form-text">Nom complet du client</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="clientEmail">
+                                    <div class="form-text">Email (optionnel)</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Téléphone</label>
+                                    <input type="tel" class="form-control" id="clientTelephone">
+                                    <div class="form-text">Téléphone (optionnel)</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle"></i>
+                                        <strong>Information RGPD</strong><br>
+                                        En application du Règlement Général sur la Protection des Données (RGPD),
+                                        nous devons obtenir le consentement explicite du client pour traiter ses données personnelles.
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="clientConsentementRGPD" required>
+                                        <label class="form-check-label" for="clientConsentementRGPD">
+                                            <strong>Le client consent au traitement de ses données personnelles <span class="text-danger">*</span></strong>
+                                        </label>
+                                        <div class="form-text">
+                                            Le client autorise Le Verger du Coin à conserver et traiter ses données
+                                            dans le cadre de la relation client (historique des achats, communication).
+                                            Ces données peuvent être supprimées à tout moment sur demande (droit à l'oubli).
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle"></i> Enregistrer le Client
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary">
+                                        <i class="bi bi-x-circle"></i> Réinitialiser
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ONGLET STATISTIQUES -->
+            <div class="tab-pane fade" id="statistiques" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">Clients les Plus Actifs</div>
+                    <div class="card-body">
+                        <div id="clientsActifsList">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Détails Client -->
+    <div class="modal fade" id="detailsClientModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-person-circle"></i> Détails du Client
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="clientDetailsContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Modifier Client -->
+    <div class="modal fade" id="modifierClientModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pencil"></i> Modifier le Client
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modifierClientForm">
+                        <input type="hidden" id="editClientId">
+                        <div class="mb-3">
+                            <label class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="editClientNom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editClientEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="editClientTelephone">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" id="saveModifierClient">
+                        <i class="bi bi-check-circle"></i> Enregistrer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Le Verger du Coin - Module CRM - Prototype POC - Gestion des Clients et Conformité RGPD</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Application JS -->
+    <script src="app.js"></script>
+</body>
+</html>
