@@ -51,8 +51,6 @@ VERGER COIN/
 │   │   └── styles.css
 │   ├── package.json
 │   ├── README.md
-│   ├── GUIDE_IMPLEMENTATION.md
-│   └── SYNTHESE_MODULE_CRM.md
 │
 └── README.md                     Ce fichier
 ```
