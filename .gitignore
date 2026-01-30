@@ -23,6 +23,3 @@ Thumbs.db
 .env
 .env.local
 
-# Fichiers Claude (à exclure du repo)
-CLAUDE.md
-.claude/
